@@ -4,15 +4,22 @@ import dynamic from 'next/dynamic'
 import { motion } from 'framer-motion'
 import HeroSection from '@/components/HeroSection'
 import PlanetSection from '@/components/PlanetSection'
+import ScrollProgress from '@/components/ScrollProgress'
 
 const Scene3D = dynamic(() => import('@/components/Scene3D'), {
   ssr: false,
   loading: () => null,
 })
 
+const CursorEffect = dynamic(() => import('@/components/CursorEffect'), {
+  ssr: false,
+})
+
 export default function Home() {
   return (
     <main className="relative min-h-screen overflow-hidden">
+      <ScrollProgress />
+      <CursorEffect />
       <Scene3D />
       <div className="relative z-10">
         <HeroSection />

@@ -234,7 +234,7 @@ const Planet3D = dynamic(
 export default function PlanetSection() {
   const containerRef = useRef<HTMLDivElement>(null)
 
-  const handleScrollToTop = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleScrollToTop = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault()
     window.scrollTo({ behavior: 'smooth', top: 0 })
   }
@@ -246,6 +246,43 @@ export default function PlanetSection() {
       className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 py-20"
     >
       <div className="max-w-7xl mx-auto w-full">
+        {/* Up Button above Explore New Worlds */}
+        <motion.div
+          className="flex justify-center mb-8"
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+        >
+          <motion.a
+            href="#"
+            onClick={handleScrollToTop}
+            className="inline-block cursor-pointer group"
+            whileHover={{ scale: 1.1 }}
+          >
+            <motion.div
+              animate={{ y: [0, -5, 0] }}
+              transition={{
+                duration: 1.5,
+                repeat: Infinity,
+                ease: 'easeInOut',
+              }}
+            >
+              <svg
+                className="w-8 h-8 text-white/50 group-hover:text-white transition-colors"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path d="M5 10l7-7m0 0l7 7m-7-7v18" />
+              </svg>
+            </motion.div>
+          </motion.a>
+        </motion.div>
+
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -325,45 +362,6 @@ export default function PlanetSection() {
           ))}
         </motion.div>
       </div>
-
-      {/* Up Button */}
-      <motion.div
-        className="fixed bottom-8 right-8 z-50"
-        initial={{ opacity: 0, scale: 0 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
-        transition={{ delay: 0.8, duration: 0.5 }}
-      >
-        <motion.button
-          onClick={handleScrollToTop}
-          className="glass rounded-full p-4 shadow-lg backdrop-blur-md border border-white/20 hover:border-white/40 transition-all group"
-          whileHover={{ scale: 1.1, y: -5 }}
-          whileTap={{ scale: 0.95 }}
-          animate={{
-            y: [0, -8, 0],
-          }}
-          transition={{
-            y: {
-              duration: 2,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            },
-          }}
-          aria-label="Scroll to top"
-        >
-          <svg
-            className="w-6 h-6 text-white group-hover:text-purple-300 transition-colors"
-            fill="none"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path d="M5 10l7-7m0 0l7 7m-7-7v18" />
-          </svg>
-        </motion.button>
-      </motion.div>
     </section>
   )
 }

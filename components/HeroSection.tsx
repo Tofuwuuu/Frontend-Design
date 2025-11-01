@@ -105,18 +105,34 @@ export default function HeroSection() {
           className="flex flex-wrap justify-center gap-4 sm:gap-6"
         >
           <motion.button
-            whileHover={{ scale: 1.05 }}
+            whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}
-            className="px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full font-semibold text-white shadow-lg shadow-purple-500/50 hover:shadow-xl hover:shadow-purple-500/60 transition-shadow"
+            className="relative px-8 py-4 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full font-semibold text-white shadow-lg shadow-purple-500/50 hover:shadow-xl hover:shadow-purple-500/60 transition-all overflow-hidden group"
           >
-            Get Started
+            <span className="relative z-10">Get Started</span>
+            <motion.span
+              className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity"
+              initial={false}
+            />
+            <motion.div
+              className="absolute inset-0 bg-white/20"
+              initial={{ scale: 0, opacity: 0.5 }}
+              whileTap={{ scale: 4, opacity: 0 }}
+              transition={{ duration: 0.6 }}
+            />
           </motion.button>
           <motion.button
-            whileHover={{ scale: 1.05 }}
+            whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}
-            className="px-8 py-4 glass rounded-full font-semibold text-white hover:bg-white/10 transition-colors"
+            className="relative px-8 py-4 glass rounded-full font-semibold text-white hover:bg-white/10 transition-all overflow-hidden group"
           >
-            Learn More
+            <span className="relative z-10">Learn More</span>
+            <motion.div
+              className="absolute inset-0 bg-white/10"
+              initial={{ scale: 0, opacity: 0.5 }}
+              whileTap={{ scale: 4, opacity: 0 }}
+              transition={{ duration: 0.6 }}
+            />
           </motion.button>
         </motion.div>
 
@@ -132,21 +148,26 @@ export default function HeroSection() {
               whileHover="hover"
               onHoverStart={() => setHoveredIndex(index)}
               onHoverEnd={() => setHoveredIndex(null)}
-              className="glass rounded-2xl p-6 cursor-pointer"
+              className="glass rounded-2xl p-6 cursor-pointer relative overflow-hidden group"
             >
               <motion.div
-                className="text-4xl mb-4"
+                className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-blue-500/20 opacity-0 group-hover:opacity-100 transition-opacity"
+                initial={false}
+              />
+              <motion.div
+                className="text-4xl mb-4 relative z-10"
                 animate={{
                   rotate: hoveredIndex === index ? [0, -10, 10, -10, 0] : 0,
+                  scale: hoveredIndex === index ? 1.2 : 1,
                 }}
                 transition={{ duration: 0.5 }}
               >
                 {feature.icon}
               </motion.div>
-              <h3 className="text-xl font-semibold mb-2 text-white">
+              <h3 className="text-xl font-semibold mb-2 text-white relative z-10">
                 {feature.title}
               </h3>
-              <p className="text-gray-400 text-sm">{feature.description}</p>
+              <p className="text-gray-400 text-sm relative z-10">{feature.description}</p>
             </motion.div>
           ))}
         </motion.div>
