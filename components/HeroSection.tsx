@@ -3,6 +3,14 @@
 import { motion } from 'framer-motion'
 import { useState } from 'react'
 
+const handleScrollToPlanet = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  e.preventDefault()
+  const planetSection = document.getElementById('planet')
+  if (planetSection) {
+    planetSection.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+}
+
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -150,17 +158,20 @@ export default function HeroSection() {
           animate={{ opacity: 1 }}
           transition={{ delay: 1, duration: 1 }}
         >
-          <motion.div
+          <motion.a
+            href="#planet"
+            onClick={handleScrollToPlanet}
             animate={{ y: [0, -10, 0] }}
             transition={{
               duration: 2,
               repeat: Infinity,
               ease: 'easeInOut',
             }}
-            className="inline-block"
+            className="inline-block cursor-pointer group"
+            whileHover={{ scale: 1.1 }}
           >
             <svg
-              className="w-8 h-8 text-white/50"
+              className="w-8 h-8 text-white/50 group-hover:text-white transition-colors"
               fill="none"
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -170,7 +181,7 @@ export default function HeroSection() {
             >
               <path d="M19 14l-7 7m0 0l-7-7m7 7V3" />
             </svg>
-          </motion.div>
+          </motion.a>
         </motion.div>
       </motion.div>
     </div>

@@ -1,8 +1,7 @@
 'use client'
 
-import { useRef, useMemo } from 'react'
+import { useRef, useMemo, Suspense } from 'react'
 import { Canvas, useFrame } from '@react-three/fiber'
-import { Points, PointMaterial } from '@react-three/drei'
 import * as THREE from 'three'
 
 function Stars() {
@@ -32,15 +31,15 @@ function Stars() {
 
   return (
     <group rotation={[0, 0, Math.PI / 4]}>
-      <Points ref={ref} positions={sphere} stride={3} frustumCulled={false}>
-        <PointMaterial
+      <points ref={ref} geometry={sphere} frustumCulled={false}>
+        <pointsMaterial
           transparent
           color="#fff"
           size={0.5}
           sizeAttenuation={true}
           depthWrite={false}
         />
-      </Points>
+      </points>
     </group>
   )
 }
@@ -71,6 +70,17 @@ function FloatingShapes() {
   )
 }
 
+function SceneContent() {
+  return (
+    <>
+      <Stars />
+      <FloatingShapes />
+      <ambientLight intensity={0.5} />
+      <pointLight position={[10, 10, 10]} intensity={1} />
+    </>
+  )
+}
+
 export default function Scene3D() {
   return (
     <div className="fixed inset-0 -z-10">
@@ -79,10 +89,9 @@ export default function Scene3D() {
         dpr={[1, 2]}
         gl={{ antialias: true, alpha: true }}
       >
-        <Stars />
-        <FloatingShapes />
-        <ambientLight intensity={0.5} />
-        <pointLight position={[10, 10, 10]} intensity={1} />
+        <Suspense fallback={null}>
+          <SceneContent />
+        </Suspense>
       </Canvas>
     </div>
   )
